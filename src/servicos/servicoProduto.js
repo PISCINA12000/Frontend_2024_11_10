@@ -1,4 +1,4 @@
-const urlBase = 'https://bcc-backend-lp-2-three.vercel.app/produtos';
+const urlBase = 'https://backendgabrielpissinin.vercel.app/produtos';
 
 export async function gravarProduto(produto){
     const resposta = await fetch(urlBase,{
@@ -7,7 +7,7 @@ export async function gravarProduto(produto){
             'Content-Type':"application/json"
         },
         'body': JSON.stringify(produto)
-    });
+    })
     const resultado = await resposta.json();
     return resultado;
 }
@@ -19,7 +19,7 @@ export async function alterarProduto(produto){
             'Content-Type':"application/json"
         },
         'body': JSON.stringify(produto)
-    });
+    })
     const resultado = await resposta.json();
     return resultado;
 }
@@ -27,15 +27,15 @@ export async function alterarProduto(produto){
 export async function excluirProduto(produto){
     const resposta = await fetch(urlBase + "/" + produto.codigo,{
         'method':"DELETE",
-    });
+    })
     const resultado = await resposta.json();
     return resultado;
 }
 
 export async function consultarProduto() {
-    const resposta = await fetch(urlBase,{
+    const resposta = await fetch(urlBase + "/",{
         'method':"GET"
-    });
+    })
     const resultado = await resposta.json();
     return resultado;
 }

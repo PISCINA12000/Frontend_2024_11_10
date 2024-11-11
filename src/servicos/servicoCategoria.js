@@ -1,9 +1,9 @@
-const urlBase = 'https://bcc-backend-lp-2-three.vercel.app/categorias';
+const urlBase = 'https://backendgabrielpissinin-9250azqoh-gabriels-projects-47f9bcc7.vercel.app/categorias';
 
 export async function gravarCategoria(categoria){
     const resposta = await fetch(urlBase,{
         'method':"POST",
-        'headers': { 
+        'headers': {
             'Content-Type':"application/json"
         },
         'body': JSON.stringify(categoria)

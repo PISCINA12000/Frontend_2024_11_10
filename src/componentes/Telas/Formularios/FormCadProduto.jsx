@@ -1,10 +1,11 @@
-import { Button, Spinner, Col, Form, InputGroup,
-         Row
- } from 'react-bootstrap';
+import {
+    Button, Spinner, Col, Form, InputGroup,
+    Row
+} from 'react-bootstrap';
 import { useState, useEffect } from 'react';
 import { consultarCategoria } from '../../../servicos/servicoCategoria';
 import { alterarProduto, gravarProduto } from '../../../servicos/servicoProduto';
-import toast, {Toaster} from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function FormCadProdutos(props) {
     const [produto, setProduto] = useState(props.produtoSelecionado);
@@ -12,24 +13,24 @@ export default function FormCadProdutos(props) {
     const [categorias, setCategorias] = useState([]);
     const [temCategorias, setTemCategorias] = useState(false);
 
-    useEffect(()=>{
-        consultarCategoria().then((resultado)=>{
-            if (Array.isArray(resultado)){
+    useEffect(() => {
+        consultarCategoria().then((resultado) => {
+            if (Array.isArray(resultado)) {
                 setCategorias(resultado);
                 setTemCategorias(true);
                 toast.success("Categorias Carregadas com Sucesso!");
             }
-            else{
+            else {
                 toast.error("Não foi possível carregar as categorias");
             }
-        }).catch((erro)=>{
+        }).catch((erro) => {
             setTemCategorias(false);
             toast.error("Não foi possível carregar as categorias");
         });
-        
-    },[]); //didMount
-    function selecionarCategoria(evento){
-        setProduto({...produto, categoria:{codigo:evento.currentTarget.value}})
+
+    }, []); //didMount
+    function selecionarCategoria(evento) {
+        setProduto({ ...produto, categoria: { codigo: evento.currentTarget.value } })
 
     }
     function manipularSubmissao(evento) {
@@ -39,16 +40,16 @@ export default function FormCadProdutos(props) {
             if (!props.modoEdicao) {
                 //cadastrar o produto
                 gravarProduto(produto)
-                .then((resultado)=>{
-                    if(resultado.status){
-                        props.setExibirTabela(true);
-                        toast.success("Produto Cadastrado!");
-                    }
-                    else{
-                        toast.error(resultado.mensagem);
-                    }
-                });
-                
+                    .then((resultado) => {
+                        if (resultado.status) {
+                            props.setExibirTabela(true);
+                            toast.success("Produto Cadastrado!");
+                        }
+                        else {
+                            toast.error(resultado.mensagem);
+                        }
+                    });
+
             }
             else {
                 //editar o produto
@@ -60,15 +61,15 @@ export default function FormCadProdutos(props) {
                 ), produto]);*/
 
                 //não altera a ordem dos registros
-                 alterarProduto(produto)
-                    .then((resultado)=>{
-                    if (resultado.status){
-                        props.setModoEdicao(false);
-                        toast.success("Produto Alterado");
-                    }
-                    else
-                        toast.error(resultado.mensagem);
-                });
+                alterarProduto(produto)
+                    .then((resultado) => {
+                        if (resultado.status) {
+                            props.setModoEdicao(false);
+                            toast.success("Produto Alterado");
+                        }
+                        else
+                            toast.error(resultado.mensagem);
+                    });
                 /*props.setListaDeProdutos(props.listaDeProdutos.map((item) => {
                     if (item.codigo !== produto.codigo)
                         return item
@@ -77,10 +78,10 @@ export default function FormCadProdutos(props) {
                 }));*/
 
                 //voltar para o modo de inclusão
-                
+
             }
             props.setModoEdicao(false);
-                props.setProdutoSelecionado({
+            props.setProdutoSelecionado({
                 codigo: 0,
                 descricao: "",
                 precoCusto: 0,
@@ -88,8 +89,8 @@ export default function FormCadProdutos(props) {
                 qtdEstoque: 0,
                 urlImagem: "",
                 dataValidade: ""
-                });
-                props.setExibirTabela(true);
+            });
+            props.setExibirTabela(true);
         }
         else {
             setFormValidado(true);
@@ -223,19 +224,19 @@ export default function FormCadProdutos(props) {
                     <Form.Label>Categoria:</Form.Label>
                     <Form.Select id='categoria' name='categoria' onChange={selecionarCategoria}>
                         {// criar em tempo de execução as categorias existentes no banco de dados
-                            categorias.map((categoria) =>{
+                            categorias.map((categoria) => {
                                 return <option value={categoria.codigo}>
-                                            {categoria.descricao}
-                                       </option>
+                                    {categoria.descricao}
+                                </option>
                             })
                         }
-                        
+
                     </Form.Select>
                 </Form.Group>
                 <Form.Group as={Col} md={1}>
                     {
-                      !temCategorias ? <Spinner className='mt-4' animation="border" variant="success" />
-                      : ""
+                        !temCategorias ? <Spinner className='mt-4' animation="border" variant="success" />
+                            : ""
                     }
                 </Form.Group>
             </Row>
@@ -249,8 +250,8 @@ export default function FormCadProdutos(props) {
                     }}>Voltar</Button>
                 </Col>
             </Row>
-            <Toaster position="top-right"/>
+            <Toaster position="top-right" />
         </Form>
-        
+
     );
 }

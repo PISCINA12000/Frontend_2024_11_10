@@ -1,4 +1,4 @@
-const urlBase = 'https://backendgabrielpissinin-9250azqoh-gabriels-projects-47f9bcc7.vercel.app/categorias';
+const urlBase = 'https://backendgabrielpissinin.vercel.app/categorias';
 
 export async function gravarCategoria(categoria){
     const resposta = await fetch(urlBase,{

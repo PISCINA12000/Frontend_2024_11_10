@@ -25,13 +25,19 @@ export default function TelaCadastroProduto(props) {
     useEffect(() => {
         consultarProduto().then((lista) => {
             setListaDeProdutos(lista)
-        });
-    }, []); //listaVazia
+        })
+    }, []) //listaVazia
+    useEffect(() => {
+        consultarProduto().then((lista) => {
+            setListaDeProdutos(lista)
+        })
+    }, [listaDeProdutos])
     // atualiza a lista com dados do backend
+    
     return (
         <div>
             <Pagina>
-                |<Alert className="mt-02 mb-02 success text-center" variant="success">
+                <Alert className="mt-02 mb-02 success text-center" variant="success">
                     <h2>
                         Cadastro de Produto
                     </h2>
@@ -43,7 +49,9 @@ export default function TelaCadastroProduto(props) {
                             setListaDeProdutos={setListaDeProdutos}
                             setExibirTabela={setExibirTabela}
                             setModoEdicao={setModoEdicao}
-                            setProdutoSelecionado={setProdutoSelecionado} /> :
+                            setProdutoSelecionado={setProdutoSelecionado}
+                        />
+                        :
                         <FormCadProdutos
                             listaDeProdutos={listaDeProdutos}
                             setListaDeProdutos={setListaDeProdutos}
